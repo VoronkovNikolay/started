@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <string.h>
+#define N 20
+
+
+int FindBracket(char S[]);
+void ShiftLeft(char S[], int pos, int cnt);
+int StrLen(char S[]);
+
+
+void main()
+{
+   
+   char S1[]="as{dfghjklqw}ert";
+   char S2[N];
+   int i, j;
+  
+ 
+   printf("S1|%s\n", S1);
+   
+   for (i=FindBracket(S1)+1, j=0; S1[i]!='}';i++)
+   {
+       S2[j++]=S1[i];
+   }
+   S2[j]='\0';
+   printf("S2|%s\n", S2);
+   ShiftLeft(S1, FindBracket(S1), StrLen(S2)+2);
+   printf("S1|%s\n", S1);
+   
+  
+}
+
+
+
+int FindBracket(char S[])
+{
+int i;
+int k=0;	
+int max;
+int b;	
+    for (i=0, max=0, b=-1; S[i]!=0; i++)
+	{
+	    if (S[i]=='}') k--;
+        if (S[i]=='{') 
+	    {
+	        k++;
+	        if (k>max)  
+	        { 
+	        max=k; b=i; 
+	        }
+	    }
+	}
+	if (k!=0)
+	{
+	 printf("BAD STRING\n");  
+	}
+
+return b;
+}
+
+
+void ShiftLeft(char S[], int pos, int cnt)
+{
+    int i, j;
+    int len;
+    len = StrLen(S);
+    if (pos<0 || pos >= len)
+    {
+        return;
+    }
+    for (i=pos+cnt, j=pos; i<len; i++,j++)
+    {
+        S[j]=S[i];
+    }
+    S[j]= '\0';
+}
+
+int StrLen(char S[])
+{
+    int i;
+    for(i=0; S[i] != '\0'; i++);
+    return i;
+}
